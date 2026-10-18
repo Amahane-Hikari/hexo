@@ -15,4 +15,5 @@ if theme.menu
           .headline= _p('aside.categories')
           .length-num= site.categories.length
 
+      //- luomo: menuScope keeps the disclosure ids unique.
       != partial('includes/header/menu_item', {menuScope: 'sidebar'})

@@ -7,7 +7,7 @@
  ## 技术栈
 
  - [Hexo](https://hexo.io/) 7.x — 静态博客生成器
- - [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly) — 主题
+ - [Butterfly](https://github.com/jerryc127/hexo-theme-butterfly) 5.7 — 主题（官方原版加少量补丁，站点配置在 `_config.butterfly.yml`）
  - [pnpm](https://pnpm.io/) — 包管理器
  - [Vercel](https://vercel.com/) — 托管与部署
  - Markdown / KaTeX / APlayer / Bilibili tag 等

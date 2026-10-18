@@ -333,7 +333,8 @@
   transition: background-color 0.2s, transform 0.2s var(--lm-ease);
 }
 
-.tag-cloud-list a:hover {
+/* 4.13-style text tags only; 5.x capsules keep their colour (see below). */
+.tag-cloud-list a:not(.tag-cloud-item):not([style*="background-color"]):hover {
   background: var(--lm-violet-soft);
   transform: translateY(-2px);
 }
@@ -363,4 +364,30 @@
 
   #article-container table th,
   #article-container table td { min-width: 120px; }
+}
+
+/* Butterfly 5.x tag capsules: colours come from custom_colors in
+   source/tags/index.md; keep the white text readable and lift on hover. */
+.tag-cloud-list a.tag-cloud-item,
+.tag-cloud-list a[style*="background-color"] {
+  margin: 5px 4px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  color: #fff;
+  box-shadow: 0 6px 14px -10px rgba(31, 36, 64, 0.8);
+  transition: transform 0.25s var(--lm-ease), box-shadow 0.25s, filter 0.25s;
+}
+
+.tag-cloud-list a.tag-cloud-item:hover,
+.tag-cloud-list a[style*="background-color"]:hover {
+  background-image: none;
+  color: #fff;
+  box-shadow: 0 10px 20px -10px rgba(31, 36, 64, 0.9);
+  filter: brightness(1.08) saturate(1.05);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .tag-cloud-list a.tag-cloud-item,
+[data-theme="dark"] .tag-cloud-list a[style*="background-color"] {
+  filter: brightness(1.12);
 }
