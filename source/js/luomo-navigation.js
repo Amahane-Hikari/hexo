@@ -202,7 +202,8 @@
   // The theme ignores input before its asynchronous database fetch finishes.
   // Replay that input through the existing search implementation once ready.
   window.addEventListener('search:loaded', function () {
-    var input = document.querySelector('#local-search-input input');
+    // 4.13: #local-search-input; 5.x: .local-search-input
+    var input = document.querySelector('#local-search-input input, #local-search .local-search-input input');
     if (input && input.value.trim()) input.dispatchEvent(new Event('input', { bubbles: true }));
   });
 

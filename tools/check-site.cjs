@@ -67,7 +67,9 @@ function inspect(directory) {
       if (entry.name.endsWith('.html')) {
         const header = text.match(/<header\b[^>]*\bid="page-header"[^>]*>[\s\S]*?<\/header>/);
         if (header) {
-          const image = header[0].match(/background-image:\s*url\('([^']+)'\)/);
+          // Butterfly 4.13 quotes the url ('...'); 5.x writes it bare.
+          const match = header[0].match(/background-image:\s*url\((['"]?)([^'")]+)\1\)/);
+          const image = match && [match[0], match[2]];
           if (image) {
             if (ownedImages.has(image[1])) {
               assert.equal(header[0].includes('class="banner-credit"'), false, `owned image must not have a banner credit in ${filename}`);

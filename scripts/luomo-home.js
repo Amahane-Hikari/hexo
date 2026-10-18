@@ -10,7 +10,8 @@
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const escapeHTML = value => String(value).replace(/[&<>"']/g, ch => ESCAPES[ch]);
 
-const ANCHOR = '<div class="recent-posts" id="recent-posts">';
+// Butterfly 4.13 renders class="recent-posts"; 5.x adds a modifier (class="recent-posts nc").
+const ANCHOR = /<div class="recent-posts[^"]*" id="recent-posts">/;
 
 function heading(eyebrow, title, extraClass = '') {
   if (!title) return '';
@@ -36,6 +37,6 @@ hexo.extend.filter.register('after_render:html', function (html, locals) {
   const page = locals && locals.page;
   if (!page || page.__index !== true || (page.current && page.current !== 1)) return html;
   const home = hexo.locals.get('data').home;
-  if (!home || !html.includes(ANCHOR)) return html;
-  return html.replace(ANCHOR, ANCHOR + render(home));
+  if (!home || !ANCHOR.test(html)) return html;
+  return html.replace(ANCHOR, match => match + render(home));
 });

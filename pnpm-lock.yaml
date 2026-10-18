@@ -84,14 +84,17 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       hexo-util:
-        specifier: ^3.3.0
-        version: 3.3.0
+        specifier: ^4.0.0
+        version: 4.0.0
       hexo-wordcount:
         specifier: ^6.0.1
         version: 6.0.1
       markdown-it-ruby:
         specifier: ^0.1.1
         version: 0.1.1
+      moment-timezone:
+        specifier: ^0.6.5
+        version: 0.6.5
 
 packages:
 
@@ -1418,6 +1421,9 @@ packages:
   moment-timezone@0.5.45:
     resolution: {integrity: sha512-HIWmqA86KcmCAhnMAN0wuDOARV/525R2+lOLotuGFzn4HO+FH+/645z2wx0Dt3iDv6/p61SIvKnDstISainhLQ==}
 
+  moment-timezone@0.6.5:
+    resolution: {integrity: sha512-KKzZAxGv2Qx4cnk6eSlvf4C+DLFW52vmMY5MN7UARY7GONbozkutylQG3DrrtmLCTXdQ5XZrqao9cI16bLFzXA==}
+
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
@@ -1555,6 +1561,7 @@ packages:
 
   path-dirname@1.0.2:
     resolution: {integrity: sha512-ALzNPpyNq9AqXMBjeymIjFDAkAFH06mHJH/cSBHAgU0s4vfpBn6b2nf8tiRLvagKD8RbTpq2FKTBg7cl9l3c7Q==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   path-expression-matcher@1.6.1:
     resolution: {integrity: sha512-h7bxdzhHk8Knyc4Tj+jMaa7fEEoUJy7p1qtbVgkYg1Uhpe5Np5VuGXCRZnkZvU+Q42M1vStt0ifa3ueykRJPmQ==}
@@ -3590,6 +3597,10 @@ snapshots:
       micro-memoize: 4.1.2
 
   moment-timezone@0.5.45:
+    dependencies:
+      moment: 2.30.1
+
+  moment-timezone@0.6.5:
     dependencies:
       moment: 2.30.1
 

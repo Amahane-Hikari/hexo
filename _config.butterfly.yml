@@ -1,0 +1,198 @@
+# Butterfly 5.7 site overrides (星港手帐).
+# Only values that differ from themes/butterfly/_config.yml (stock 5.7.0) live here,
+# so the theme folder can be replaced on upgrade. Generated from the 4.13 config;
+# see docs/FRONTEND.md for the migration notes.
+nav:
+  logo: /img/logo-192.png
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  音乐: /music/ || fas fa-music
+  星港||fas fa-star:
+    项目档案: /projects/ || fas fa-rocket
+    云服务: /cloud/ || fas fa-cloud
+    建站日志: /build-log/ || fas fa-stream
+  友链: /link/ || fas fa-link
+  关于: /about/ || fas fa-heart
+code_blocks:
+  height_limit: 400
+  word_wrap: true
+favicon: /img/logo-192.png
+subtitle:
+  enable: true
+  typed_option:
+    startDelay: 300
+    typeSpeed: 150
+    backSpeed: 50
+    loop: true
+  sub:
+    - 左青龙，右白虎，少吃碳水化合物
+    - 我将飞上高空，变作天上的太阳，万众在我的光芒中热烈的生长
+    - 人类从此会爱上夜晚，不再崇拜灿烂的艳阳
+    - 倘若生命，生来软弱 ，弱者们又该向哪位神明寻求安宁
+    - 愿母神三度为你阖眼，令你的血脉永远鼓动，旅途永远坦然，诡计永不败露
+    - 如果强者的权势财富能掩盖罪行，谁能对他们予以裁决？
+    - 如果弱者为延续生存需不惜代价，谁能为他们予以担保？
+    - 如果至纯善的灵魂都会犯下过错，谁能给他们予以宽慰？
+    - "若「以强援弱」果真是乐园的根基......\t又是谁徒留他们在苦难的人间哀号？"
+    - 活在梦里的人们，真的能够远离痛苦，收获真正的幸福吗？
+    - 「未来」的别名...正是「自我价值」。
+    - 人们总是会忘记，曾经，当第一只鸟儿飞上天际，那时整个世界对它的期许......是自此以后，不再有任何雏鸟坠亡大地。
+    - 钟表的指针周而复始，就像人的困惑、烦恼、软弱...摇摆不停。但最终，人们依旧要前进，就像你的指针，永远落在前方。
+    - 所谓「开拓」，就是沿着前人未尽的道路，走出更遥远的距离......
+    - 我梦见一片焦土，一株破土而生的新蕊，它迎着朝阳绽放，向我低语呢喃......飞萤扑火，向死而生。
+    - 敬不完美的...明天。
+    - 白昼与黑夜相等吗？义人与罪人相等吗？倘若人生来软弱——弱者们又该从哪位神明处寻得安宁？
+    - 第一日，赐以「真实」...已死的星神，我向你致敬。第二日，赐以「历法」...第三日，赐以「言语」...以此七日誓言，命尔听从号令——第四日，赐以「价值」...第五日，赐以「规则」...第六日，赐以「意义」...并非是你造化万物。第七日，赐以「尊严」...即将见证【太初有为】！
+    - 生命因何而沉睡？因为......总有一天......我们会从梦中醒来。
+    - 谈判的三步式：先聆听；再试探；最后展露刀芒。
+    - 敬匹诺康尼的过去、现在、未来...和稚子至死不渝的梦。
+    - 时间会带走一切，珍惜当下。我知道，但让我很难释怀的...就是
+    - 银河浩瀚，生命渺小，「开拓」的脚步从不停歇，但在宇宙的尺度下，普通人穷尽一生也只能走出一段短短的距离。
+    - 人生苦短，良机莫失。
+    - 眼下简直有太多不可能发生的事了,但它们就真的绝对不会发生吗?要我说,没准只是这些“不可能”被否定的瞬间还没到来而已。
+    - 并非是命运塑造了我们，而是我们塑造了命运。
+    - 所谓的不可能之事，只是尚未到来之事
+    - 「隐瞒」远比「坦诚」更简单
+    - 敬沉眠于地下的无名客们，还有我的好友，加拉赫。死亡是如此苦涩的事实，但你们所奉献的一切将被历史所铭记。我们不被外面的世界接受，因此才聚在这里。而终有一日，我们将魂归同处。
+avatar:
+  img: /img/avatar.jpg
+default_top_img: /img/banner/default-sky.webp
+index_img: /img/banner/home-lantern.webp
+archive_img: /img/banner/archive-quartet.webp
+tag_img: /img/banner/tags-elaina.webp
+category_img: /img/banner/archive-quartet.webp
+error_404:
+  enable: true
+  subtitle: 这颗星星还没被点亮
+  background: /img/404.jpg
+index_post_content:
+  method: 2
+  length: 180
+reward:
+  enable: true
+  text: 打赏站长服务器钱吧qwq
+  QR_code:
+    - img: /img/wechat.jpg
+      link: wxp://f2f0Wx3Y14ADmHBbz09Ji3ybg3ekFztvrJzZVUm8z8EOuvA
+      text: 微信
+    - img: /img/alipay.jpg
+      link: https://qr.alipay.com/fkx162648j0nzxvefjvpi62
+      text: 支付宝
+footer:
+  owner:
+    since: 2019
+  custom_text: >-
+    <div class="footer-beian"><a href="https://icp.gov.moe/?keyword=20247012" target="_blank" rel="noopener">萌ICP备20247012号</a><span class="beian-separator"> | </span><a
+    href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color:#f72b07">辽ICP备2025053568号-2</a></div>
+aside:
+  card_newest_comments:
+    enable: true
+    sort_order: 2
+    limit: 5
+  card_author:
+    button:
+      link: https://github.com/luomo66ccff
+  card_announcement:
+    content: 欢迎登船 ✦ 这里记录技术折腾、云上项目与二次元日常。服务是否在线可以看 <a href="/status/">星港服务状态</a>，想交换友链请到 <a href="/link/">友链</a> 页留言。
+  card_recent_post:
+    sort_order: 1
+  card_categories:
+    sort_order: 4
+  card_tags:
+    sort_order: 3
+  card_archives:
+    sort_order: 5
+  card_webinfo:
+    sort_order: 6
+    runtime_date: 7/12/2020 00:00:00
+translate:
+  enable: true
+  default: 简
+  msgToTraditionalChinese: 简
+  msgToSimplifiedChinese: 简
+anchor:
+  auto_update: true
+  click_to_scroll: true
+wordcount:
+  enable: true
+share:
+  sharejs:
+    sites: facebook,twitter,wechat,weibo,qq
+  addtoany:
+    item: facebook,twitter,wechat,sina_weibo,facebook_messenger,email,copy_link
+comments:
+  use: Waline
+  lazyload: true
+  count: true
+waline:
+  serverURL: https://waline.march7th.cn
+  option:
+    turnstileKey: 0x4AAAAAAA6IzfN7NEaL4a18
+chat:
+  button_hide_show: true
+site_verification:
+  - name: baidu-site-verification
+    content: codeva-ZC3bYL1LhM
+theme_color:
+  enable: true
+  main: "#6656D8"
+  paginator: "#6656D8"
+  button_hover: "#E8665B"
+  text_selection: "#6656D8"
+  link_color: "#6656D8"
+  meta_color: "#7C8199"
+  hr_color: "#B9B2EC"
+  code_foreground: "#6656D8"
+  code_background: rgba(102, 86, 216, .1)
+  toc_color: "#6656D8"
+  blockquote_padding_color: "#6656D8"
+  blockquote_background_color: "#6656D8"
+  scrollbar_color: "#B9B2EC"
+  meta_theme_color_light: "#F6F4EF"
+  meta_theme_color_dark: "#11121A"
+preloader:
+  pace_css_url: https://codebyzach.github.io/7b93e64d-ceac-493b-a175-b5509076c1a1
+activate_power_mode:
+  shake: false
+canvas_ribbon:
+  click_to_change: true
+lightbox: fancybox
+abcjs:
+  enable: true
+mermaid:
+  enable: true
+note:
+  icons: false
+pjax:
+  enable: true
+  exclude:
+    - /
+    - /music/
+snackbar:
+  enable: true
+instantpage: true
+lazyload:
+  enable: true
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/luomo-theme.css?v=20261018-layout">
+  bottom:
+    - <script src="/js/luomo-theme.js?v=20261011-status"></script>
+    - <script src="/js/luomo-navigation.js?v=20261011"></script>
+    - <script src="/js/luomo-ui.js?v=20261018-captcha"></script>
+math:
+  use: katex
+  per_page: true
+  katex:
+    copy_tex: true
+search:
+  use: local_search
+CDN:
+  version: true
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: false

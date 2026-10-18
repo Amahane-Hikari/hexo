@@ -2,7 +2,8 @@ extends includes/layout.pug
 
 block content
   #page.image-credits-page
-    h1.page-title= page.title
+    //- 5.x renders the real <h1> as .title-seo in the header for pages without a banner.
+    .page-title(role='heading' aria-level='1')= page.title
     p.image-credits-intro 这里收录本站使用的他人作品及其出处。喜欢哪张，可以从这里找到原作。
     .image-credits-grid
       each credit in site.data.image_credits.images

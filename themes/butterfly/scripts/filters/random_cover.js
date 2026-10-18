@@ -1,40 +1,109 @@
 /**
- * Butterfly
- * ramdom cover
+ * Random cover for posts
  */
 
 'use strict'
 
-hexo.extend.filter.register('before_post_render', data => {
-  const imgTestReg = /\.(png|jpe?g|gif|svg|webp)(\?.*)?$/i
-  let { cover: coverVal, top_img: topImg } = data
+hexo.extend.generator.register('post', locals => {
+  const imgTestReg = /\.(png|jpe?g|gif|svg|webp|avif)(\?.*)?$/i
+  const remoteImgReg = /^(?:https?:)?\/\//i
+  const dataImgReg = /^data:image\//i
 
-  // Add path to top_img and cover if post_asset_folder is enabled
-  if (hexo.config.post_asset_folder) {
-    if (topImg && topImg.indexOf('/') === -1 && imgTestReg.test(topImg)) data.top_img = `${data.path}${topImg}`
-    if (coverVal && coverVal.indexOf('/') === -1 && imgTestReg.test(coverVal)) data.cover = `${data.path}${coverVal}`
+  const { post_asset_folder: postAssetFolder } = hexo.config
+  const { cover: { default_cover: defaultCover } } = hexo.theme.config
+
+  const isImage = value => {
+    return typeof value === 'string' &&
+      (remoteImgReg.test(value) || dataImgReg.test(value) || imgTestReg.test(value))
   }
 
-  const randomCoverFn = () => {
-    const { cover: { default_cover: defaultCover } } = hexo.theme.config
-    if (!defaultCover) return false
-    if (!Array.isArray(defaultCover)) return defaultCover
-    const num = Math.floor(Math.random() * defaultCover.length)
-    return defaultCover[num]
+  function * createCoverGenerator () {
+    if (!defaultCover || (Array.isArray(defaultCover) && defaultCover.length === 0)) {
+      while (true) yield false
+    }
+
+    if (!Array.isArray(defaultCover)) {
+      while (true) yield defaultCover
+    }
+
+    if (defaultCover.length === 1) {
+      while (true) yield defaultCover[0]
+    }
+
+    const coverCount = defaultCover.length
+    const maxHistory = Math.min(3, coverCount - 1)
+    const history = []
+
+    while (true) {
+      let index
+
+      do {
+        index = Math.floor(Math.random() * coverCount)
+      } while (history.includes(index))
+
+      history.push(index)
+
+      if (history.length > maxHistory) {
+        history.shift()
+      }
+
+      yield defaultCover[index]
+    }
   }
 
-  if (coverVal === false) return data
+  const coverGenerator = createCoverGenerator()
 
-  // If cover is not set, use random cover
-  if (!coverVal) {
-    const randomCover = randomCoverFn()
-    data.cover = randomCover
-    coverVal = randomCover // update coverVal
+  const resolvePostAsset = (value, postPath) => {
+    if (
+      !postAssetFolder ||
+      typeof value !== 'string' ||
+      value.includes('/') ||
+      !imgTestReg.test(value)
+    ) {
+      return value
+    }
+
+    return `${postPath}${value}`
   }
 
-  if (coverVal && (coverVal.indexOf('//') !== -1 || imgTestReg.test(coverVal))) {
-    data.cover_type = 'img'
+  const handleImg = data => {
+    data.top_img = resolvePostAsset(data.top_img, data.path)
+    data.cover = resolvePostAsset(data.cover, data.path)
+    data.pagination_cover = resolvePostAsset(data.pagination_cover, data.path)
+
+    if (data.cover === false) return data
+
+    if (!data.cover) {
+      data.cover = coverGenerator.next().value
+    }
+
+    if (isImage(data.cover)) {
+      data.cover_type = 'img'
+    }
+
+    return data
   }
 
-  return data
+  const posts = locals.posts.sort('date').toArray()
+  const { length } = posts
+
+  return posts.map((post, index) => {
+    const data = post
+
+    if (index > 0) {
+      data.prev = posts[index - 1]
+    }
+
+    if (index < length - 1) {
+      data.next = posts[index + 1]
+    }
+
+    data.__post = true
+
+    return {
+      data: handleImg(data),
+      layout: 'post',
+      path: data.path
+    }
+  })
 })

@@ -19,7 +19,7 @@
   }
 }
 
-#recent-posts > .recent-post-item,
+#recent-posts .recent-post-item,
 #recent-posts > .lm-gates,
 #aside-content .card-widget,
 #post,
@@ -34,15 +34,15 @@
   animation: lm-rise 0.7s var(--lm-ease) backwards;
 }
 
-#recent-posts > .recent-post-item:nth-of-type(2) { animation-delay: 0.06s; }
-#recent-posts > .recent-post-item:nth-of-type(3) { animation-delay: 0.12s; }
-#recent-posts > .recent-post-item:nth-of-type(4) { animation-delay: 0.18s; }
-#recent-posts > .recent-post-item:nth-of-type(n + 5) { animation-delay: 0.24s; }
+#recent-posts .recent-post-item:nth-of-type(2) { animation-delay: 0.06s; }
+#recent-posts .recent-post-item:nth-of-type(3) { animation-delay: 0.12s; }
+#recent-posts .recent-post-item:nth-of-type(4) { animation-delay: 0.18s; }
+#recent-posts .recent-post-item:nth-of-type(n + 5) { animation-delay: 0.24s; }
 #aside-content .card-widget { animation-delay: 0.1s; }
 
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
-    #recent-posts > .recent-post-item,
+    #recent-posts .recent-post-item,
     #aside-content .sticky_layout > .card-widget:not(#card-toc),
     .project-card,
     .cloud-card,

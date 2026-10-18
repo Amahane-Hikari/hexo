@@ -123,20 +123,26 @@
 .flink .flink-list > .flink-list-item .flink-item-name { color: var(--lm-ink); font-weight: 650; }
 .flink .flink-list > .flink-list-item .flink-item-desc { color: var(--lm-ink-3); }
 
-/* ---------- 404 ---------- */
-.error404 #error-wrap .error-content {
+/* ---------- 404 (4.13: .error404 #error-wrap, 5.x: .type-404 #page.nc) ---------- */
+.type-404 #page.nc {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+:is(.error404 #error-wrap, .type-404) .error-content {
   overflow: hidden;
   border: 1px solid var(--lm-line);
   border-radius: var(--lm-radius);
   box-shadow: var(--lm-shadow-2);
 }
 
-.error404 #error-wrap .error-content .error-img img {
+:is(.error404 #error-wrap, .type-404) .error-content .error-img img {
   background: #fff;
   object-fit: contain;
 }
 
-.error404 #error-wrap .error-content .error-info .error_title {
+:is(.error404 #error-wrap, .type-404) .error-content .error-info .error_title {
   background: var(--lm-grad);
   -webkit-background-clip: text;
   background-clip: text;

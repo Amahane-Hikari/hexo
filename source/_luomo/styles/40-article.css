@@ -276,6 +276,7 @@
 
 #pagination.pagination-post .prev-post div.cover,
 #pagination.pagination-post .next-post div.cover,
+#pagination.pagination-post .pagination-related div.cover,
 .relatedPosts .relatedPosts-list > div > a > div.cover {
   opacity: 0.88;
 }

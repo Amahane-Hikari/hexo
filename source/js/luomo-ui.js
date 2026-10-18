@@ -9,7 +9,9 @@
   var frame = 0;
 
   function isPost() {
-    return Boolean(window.GLOBAL_CONFIG_SITE && window.GLOBAL_CONFIG_SITE.isPost);
+    var site = window.GLOBAL_CONFIG_SITE;
+    // Butterfly 4.13 sets isPost; 5.x sets pageType: 'post'.
+    return Boolean(site && (site.isPost || site.pageType === 'post'));
   }
 
   function update() {
