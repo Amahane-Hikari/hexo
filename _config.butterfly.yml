@@ -204,7 +204,7 @@ inject:
   bottom:
     - <script src="/js/luomo-theme.js?v=20261011-status"></script>
     - <script src="/js/luomo-navigation.js?v=20261011"></script>
-    - <script src="/js/luomo-ui.js?v=20261019-artwork"></script>
+    - <script src="/js/luomo-ui.js?v=20261019-counters"></script>
 math:
   use: katex
   per_page: true

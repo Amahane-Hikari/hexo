@@ -1,4 +1,4 @@
-/* 星港手帐 · interaction layer: reading progress, card spotlight, "/" search, voyage days, Pjax fade, Waline captcha fix. Pjax-safe, no dependencies. */
+/* 星港手帐 · interaction layer: reading progress, card spotlight, "/" search, voyage days, Pjax fade, local-preview counter label, Waline captcha fix. Pjax-safe, no dependencies. */
 (function () {
   'use strict';
 
@@ -132,6 +132,28 @@
     });
   }
 
+  /*
+   * Busuanzi keys its counters by the page's host, so every local preview in
+   * the world shares one "localhost" bucket (tens of millions of visits).
+   * On local hosts, label the counters instead of showing those numbers.
+   */
+  var LOCAL_HOST = /^(localhost|127\.0\.0\.1|\[::1\]|.+\.localhost|.+\.test)$/i;
+  var LOCAL_LABEL = '本地预览';
+
+  function maskLocalCounters() {
+    if (!LOCAL_HOST.test(location.hostname)) return;
+    document.querySelectorAll('[id^="busuanzi_value_"]').forEach(function (node) {
+      if (node.dataset.lmMasked) return;
+      node.dataset.lmMasked = 'true';
+      node.title = '本地预览时不蒜子返回的是所有人共用的 localhost 计数，不代表本站数据';
+      var mask = function () {
+        if (node.textContent !== LOCAL_LABEL) node.textContent = LOCAL_LABEL;
+      };
+      new MutationObserver(mask).observe(node, { childList: true, characterData: true, subtree: true });
+      mask();
+    });
+  }
+
   // Soft fade of the content while Pjax swaps pages.
   document.addEventListener('pjax:send', function () {
     document.documentElement.classList.add('lm-swapping');
@@ -142,6 +164,7 @@
     initProgress();
     patchTurnstile();
     updateVoyageDays();
+    maskLocalCounters();
   }
 
   window.addEventListener('scroll', schedule, { passive: true });

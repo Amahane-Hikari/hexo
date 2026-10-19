@@ -44,7 +44,7 @@
 | `source/_data/home.yml` | 首页各区块的文案、入口链接、标签配色和航行起始日 |
 | `source/_data/widget.yml` | 侧栏自定义小组件（目前是 MapMyVisitors 访客地图） |
 | `source/_data/image_credits.json` | 第三方横幅图片的署名信息 |
-| `source/js/luomo-ui.js` | 阅读进度条、卡片柔光、`/` 快捷搜索、航行天数实时计算、Pjax 换页柔化，以及 Waline 人机验证框的清理补丁 |
+| `source/js/luomo-ui.js` | 阅读进度条、卡片柔光、`/` 快捷搜索、航行天数实时计算、Pjax 换页柔化、本地预览时的访客统计标注，以及 Waline 人机验证框的清理补丁 |
 | `source/js/luomo-navigation.js` | 导航菜单与搜索的键盘操作和无障碍属性 |
 | `source/js/luomo-theme.js` | 项目筛选和状态页检查 |
 
@@ -64,6 +64,13 @@
 | `layout/includes/footer.pug` | 末尾加"图片来源"链接；页脚导航只有站外链接才新开标签页 | 链接到 `/image-credits/`；原版把站内链接也设成了新标签页 |
 | `layout/image-credits.pug` | 新增 | 图片来源页的布局 |
 | `source/img/wechat.jpg`、`alipay.jpg` | 新增 | 打赏二维码 |
+
+## 访客统计（不蒜子）
+
+- 不蒜子按页面的域名分别计数：`blog.luomo.moe` 是本站当前的数据；迁移前的旧域名 `luomo.march7th.cn` 另有一份独立计数（约 182 访客 / 191 访问，迁移后已不再增长），两边无法合并。
+- 在 `localhost`、`127.0.0.1` 等本地地址预览时，不蒜子返回的是全世界共用的 localhost 计数（数千万），并不是本站数据。`luomo-ui.js` 会在本地地址上把这些数字替换为「本地预览」，鼠标悬停有说明。
+- 文章阅读量是按每篇文章的完整网址统计的：不蒜子的请求自己设置了 `referrerPolicy`，不受站点 `Referrer-Policy` 响应头影响。
+- 自动化测试、截图会给线上计数加数，尽量对本地预览做测试。
 
 ## 第三方资源全部本站加载
 
