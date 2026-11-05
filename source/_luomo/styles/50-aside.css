@@ -219,15 +219,21 @@
 .lm-globe-tip {
   position: absolute;
   z-index: 3;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: calc(100% - 8px);
   padding: 4px 10px;
   border-radius: 999px;
   background: var(--lm-ink);
   color: var(--lm-paper);
   font-size: 0.76rem;
-  white-space: nowrap;
+  text-align: center;
+  overflow-wrap: anywhere;
   pointer-events: none;
-  transform: translate(-50%, calc(-100% - 12px));
+  transform: translate(-50%, -100%);
 }
+
+.lm-globe-tip[hidden] { display: none; }
 
 .lm-globe-list {
   margin: 8px 0 0;

@@ -121,6 +121,7 @@
     this.frame = 0;
     this.last = 0;
     this.hover = null;
+    this.pointer = null;
     this.destroyed = false;
     this.landDirty = true;
     this.landLast = 0;
@@ -136,6 +137,7 @@
     root.classList.add('is-loading');
     var stage = document.createElement('div');
     stage.className = 'lm-globe-stage';
+    this.stage = stage;
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute('aria-hidden', 'true');
     this.canvas.title = '陆地数据：Natural Earth 110m';
@@ -143,6 +145,7 @@
     this.landCtx = this.landCanvas.getContext('2d');
     this.tip = document.createElement('div');
     this.tip.className = 'lm-globe-tip';
+    this.tip.setAttribute('role', 'tooltip');
     this.tip.hidden = true;
     this.status = document.createElement('p');
     this.status.className = 'lm-globe-status';
@@ -192,13 +195,18 @@
     if (calm.addEventListener) calm.addEventListener('change', this.onMotionChange);
     else if (calm.addListener) calm.addListener(this.onMotionChange);
 
-    // Drag to turn the globe; hover a point for its country.
+    // Pause rotation while inspecting the globe; drag to turn it manually.
     var drag = null;
+    this.canvas.addEventListener('pointerenter', function (event) {
+      if (!self.destroyed && event.pointerType !== 'touch') self.pick(event);
+    });
     this.canvas.addEventListener('pointerdown', function (event) {
-      if (self.destroyed) return;
+      if (self.destroyed || event.button !== 0) return;
       drag = { x: event.clientX, y: event.clientY, lon: self.view.lon, tilt: self.view.tilt };
       self.canvas.setPointerCapture(event.pointerId);
       self.root.classList.add('is-dragging');
+      self.hover = null;
+      self.tip.hidden = true;
     });
     this.canvas.addEventListener('pointermove', function (event) {
       if (self.destroyed) return;
@@ -211,20 +219,23 @@
       }
       self.pick(event);
     });
-    var release = function () {
+    var release = function (event) {
       if (self.destroyed || !drag) return;
       drag = null;
       self.root.classList.remove('is-dragging');
       self.landDirty = true;
-      self.draw();
+      if (event.type === 'pointerup' && event.pointerType !== 'touch') self.pick(event);
+      else { self.pointer = null; self.draw(); }
     };
     this.canvas.addEventListener('pointerup', release);
     this.canvas.addEventListener('pointercancel', release);
     this.canvas.addEventListener('lostpointercapture', release);
     this.canvas.addEventListener('pointerleave', function () {
       if (self.destroyed) return;
+      self.pointer = null;
       self.hover = null;
       self.tip.hidden = true;
+      self.draw();
     });
   };
 
@@ -369,7 +380,7 @@
       if (calm.matches) { self.draw(); return; }
       var dt = self.last ? Math.min(64, time - self.last) : 16;
       self.last = time;
-      if (!self.root.classList.contains('is-dragging')) self.view.lon += dt * 0.006;
+      if (!self.pointer && !self.root.classList.contains('is-dragging')) self.view.lon += dt * 0.006;
       self.time = time;
       self.draw();
       self.frame = requestAnimationFrame(tick);
@@ -488,6 +499,7 @@
       ctx.closePath(); ctx.fill();
       ctx.restore();
     }
+    this.updateHover();
   };
 
   Globe.prototype.line = function (at, from, to) {
@@ -504,26 +516,44 @@
 
   Globe.prototype.pick = function (event) {
     if (this.destroyed) return;
+    this.pointer = { x: event.clientX, y: event.clientY };
+    this.draw();
+  };
+
+  Globe.prototype.updateHover = function () {
+    if (!this.pointer || this.root.classList.contains('is-dragging')) {
+      this.hover = null;
+      this.tip.hidden = true;
+      return;
+    }
     var rect = this.canvas.getBoundingClientRect();
-    var x = event.clientX - rect.left;
-    var y = event.clientY - rect.top;
+    // Convert CSS pixels to drawing coordinates (also works during scaling).
+    var x = (this.pointer.x - rect.left) * this.size / rect.width;
+    var y = (this.pointer.y - rect.top) * this.size / rect.height;
+    if (!rect.width || !rect.height || x < 0 || y < 0 || x > this.size || y > this.size) {
+      this.pointer = null;
+      this.hover = null;
+      this.tip.hidden = true;
+      return;
+    }
     var best = null;
-    var bestDist = 12;
+    var bestDist = Infinity;
     this.points.forEach(function (p) {
       if (!p.screen || p.screen.front <= 0) return;
       var d = Math.hypot(p.screen.x - x, p.screen.y - y);
-      if (d < bestDist) { best = p; bestDist = d; }
+      if (d <= 8 + p.weight * 5 && d < bestDist) { best = p; bestDist = d; }
     });
     this.hover = best;
     if (best) {
       this.tip.textContent = best.name + ' · ' + best.visitors + ' 位访客';
-      this.tip.style.left = best.screen.x + 'px';
-      this.tip.style.top = best.screen.y + 'px';
       this.tip.hidden = false;
+      var half = this.tip.offsetWidth / 2;
+      var left = this.canvas.offsetLeft + best.screen.x;
+      this.tip.style.left = Math.max(half + 4, Math.min(this.stage.clientWidth - half - 4, left)) + 'px';
+      this.tip.style.top = Math.max(this.tip.offsetHeight + 4, best.screen.y - 12) + 'px';
     } else {
       this.tip.hidden = true;
     }
-    if (calm.matches) this.draw();
   };
 
   Globe.prototype.destroy = function () {
