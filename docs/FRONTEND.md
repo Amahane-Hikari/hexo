@@ -55,7 +55,7 @@
 | `source/js/luomo-reading.js` | 文章页：目录高亮纠正、航线填充、剩余阅读时间、小节链接、`J`/`K` 跳节 |
 | `source/js/luomo-command.js` | 命令面板（`Ctrl/⌘ K`）、快捷键和 `?` 快捷键表 |
 | `source/js/luomo-navigation.js` | 导航菜单与搜索的键盘操作和无障碍属性 |
-| `source/js/luomo-theme.js` | 项目筛选和状态页检查 |
+| `source/js/luomo-theme.js` | 项目筛选、状态页检查与友链资料复制 |
 
 `source/_luomo/` 以下划线开头，Hexo 不会把它当作页面发布。`tools/check-site.cjs` 会检查每个样式文件都已合并进 bundle，并且没有被单独发布出去。
 
@@ -125,6 +125,12 @@
 3. **重新部署**一次。之后每有访客，数据会在 Vercel 里累计；首次数据可在空结果的 60 秒缓存过期、上游统计可查后显示，有数据后的更新按 1 小时缓存刷新。
 
 状态：令牌或项目标识缺失时，接口返回 `unconfigured`，地球显示"访客星图 · 暂不可用"；配置了但查询失败（令牌过期、权限不对、超时）时返回 `unavailable`，地球显示"统计数据暂时取不到"，安全的 `reason` 错误码会返回浏览器并记录到函数日志。缺失或非数组的 `data`、带有错误信封的上游 JSON 返回 `upstream_invalid`，读取响应体超时保留 `upstream_timeout`，不会冒充正常零数据；合法空数组正常返回 `ok`。未知国家或缺失国家的行仍按现有归一化规则处理，不据此把整个响应判为错误。配置正常但还没有可展示的数据时显示"近期还没有访客数据"。
+
+## 友链交换
+
+`source/link/index.md` 保留现有 Butterfly `flink` 列表，并在 `#friend-guide` 展示本站名称、站长、网址、头像、一句话描述、详细简介与 RSS。下方提供完整资料、Butterfly YAML 和申请模板的复制按钮，留言入口指向同页 `#post-comment`，继续使用现有 Waline 评论。
+
+复制交互由 `luomo-theme.js` 初始化，支持 PJAX 且不会重复绑定；复制失败时选中内容并提示手动复制。未运行 JavaScript 时隐藏复制按钮，资料与留言链接仍可使用。站点名称、头像等资料变更时，同步修改友链页中的展示与复制文本；样式在 `60-pages.css`。
 
 ## 访客统计（不蒜子）
 

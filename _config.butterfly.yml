@@ -200,9 +200,9 @@ lazyload:
   enable: true
 inject:
   head:
-    - <link rel="stylesheet" href="/css/luomo-theme.css?v=20261105-globe-hover">
+    - <link rel="stylesheet" href="/css/luomo-theme.css?v=20261105-friend-guide">
   bottom:
-    - <script src="/js/luomo-theme.js?v=20261011-status"></script>
+    - <script src="/js/luomo-theme.js?v=20261105-friend-guide"></script>
     - <script src="/js/luomo-navigation.js?v=20261011"></script>
     - <script src="/js/luomo-ui.js?v=20261019-voyage"></script>
     - <script src="/js/luomo-reading.js?v=20261019-voyage"></script>

@@ -2,7 +2,7 @@
 title: 航行日志 · Build Log
 description: 洛墨云上项目的构建与维护记录，记录博客、云服务和开发项目的更新。
 date: 2026-06-25 00:00:00
-updated: 2026-11-05 16:15:00
+updated: 2026-11-05 16:30:00
 type: build-log
 comments: false
 aside: false
@@ -14,6 +14,12 @@ top_img: false
 </div>
 
 <div class="timeline">
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2026-11-05</div>
+    <div class="timeline-content"><h3>友链邻居与交换引导更新</h3><p>按对方公布的站点名称、描述与头像加入「万物皆可写」。<a href="/link/#friend-guide">友链页</a>补充本站资料卡、可复制的资料与申请模板、Butterfly 配置和留言入口，方便交换友链及后续更新信息。</p></div>
+</div>
 
 <div class="timeline-item">
     <div class="timeline-dot"></div>

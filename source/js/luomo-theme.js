@@ -29,6 +29,51 @@
     });
   }
 
+  function initFriendGuide() {
+    var root = document.getElementById('friend-guide');
+    if (!root) return;
+    var feedback = root.querySelector('[data-friend-feedback]');
+    if (!feedback) return;
+    root.querySelectorAll('[data-friend-copy]').forEach(function(button) {
+      if (button.dataset.luomoFriendCopyBound) return;
+      var target = document.getElementById(button.dataset.friendCopy);
+      if (!target || !root.contains(target)) return;
+      button.addEventListener('click', async function(event) {
+        event.preventDefault();
+        var text = target.textContent.trim();
+        var label = button.dataset.copyLabel || '内容';
+        button.disabled = true;
+        try {
+          if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') throw new Error('clipboard_unavailable');
+          await navigator.clipboard.writeText(text);
+          if (document.contains(root)) feedback.textContent = label + '已复制';
+        } catch (error) {
+          if (!document.contains(root)) return;
+          var selected = false;
+          try {
+            var preview = target.closest('pre');
+            if (preview) preview.focus();
+            var selection = window.getSelection();
+            if (selection) {
+              var range = document.createRange();
+              range.selectNodeContents(target);
+              selection.removeAllRanges();
+              selection.addRange(range);
+              selected = text.length > 0 && selection.toString().trim() === text;
+            }
+          } catch (selectionError) {
+            selected = false;
+          }
+          feedback.textContent = label + (selected ? '未能自动复制，已选中文本，请按 Ctrl+C（Mac 为 ⌘C）手动复制。' : '未能自动复制，请在预览中选择文本并手动复制。');
+        } finally {
+          button.disabled = false;
+        }
+      });
+      button.dataset.luomoFriendCopyBound = 'true';
+      button.removeAttribute('hidden');
+    });
+  }
+
   function setIndicator(card, status, label) {
     var indicator = card.querySelector('.status-indicator');
     indicator.className = 'status-indicator status-' + status;
@@ -151,6 +196,7 @@
 
   function init() {
     initProjectsFilter();
+    initFriendGuide();
     initChecks();
   }
 
