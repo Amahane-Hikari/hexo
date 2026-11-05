@@ -11,8 +11,7 @@ menu:
   分类: /categories/ || fas fa-folder-open
   音乐: /music/ || fas fa-music
   星港||fas fa-star:
-    项目档案: /projects/ || fas fa-rocket
-    云服务: /cloud/ || fas fa-cloud
+    云服务: https://ops.luomo.moe/ || fas fa-cloud
     建站日志: /build-log/ || fas fa-stream
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
