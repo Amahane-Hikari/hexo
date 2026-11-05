@@ -55,6 +55,22 @@
       "note": "这是动画画面，未找到这一帧的单独原画署名；所用截图的最初上传页尚未确认。",
       "rights": "© 白石定規・SBクリエイティブ／魔女の旅々製作委員会",
       "status": "source_identified"
+    },
+    {
+      "id": "kazeshiro-kv",
+      "image": "/images/kazeshiro/kv-pooka.webp",
+      "title": "《とける風花とシロうさぎ》官网首屏（雪景与普卡立绘）",
+      "creator": "しらたま／サークルしらたまこ",
+      "creator_short": "しらたま",
+      "creator_url": "https://shiratamaco.com/",
+      "source_url": "https://shiratamaco.com/kazeshiro/",
+      "source_label": "官方网站 · とける風花とシロうさぎ",
+      "social_url": "https://twitter.com/shiratamacaron",
+      "social_label": "X · @shiratamacaron",
+      "usage": "《风花融化以后，白兔还在吗？》文章横幅与封面",
+      "note": "取自官网首屏的雪景背景与普卡立绘，由博主合成为横幅；该文的其余插图也来自官网和 Steam 商店页。",
+      "rights": "©2026 shiratamaco all rights reserved.",
+      "status": "confirmed"
     }
   ]
 }
