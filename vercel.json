@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm run build",
+  "ignoreCommand": "test ! -s source/js/swarm-web.js || test ! -s source/js/luomo-swarm.js || test ! -s scripts/luomo-swarm-boot.js",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": "public",
   "framework": "hexo",
