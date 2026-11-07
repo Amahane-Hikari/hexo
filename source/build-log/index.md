@@ -2,7 +2,7 @@
 title: 航行日志 · Build Log
 description: 洛墨云上项目的构建与维护记录，记录博客、云服务和开发项目的更新。
 date: 2026-06-25 00:00:00
-updated: 2026-11-05 16:30:00
+updated: 2026-11-07 00:00:00
 type: build-log
 comments: false
 aside: false
@@ -13,7 +13,24 @@ top_img: false
   <p class="luomo-hero-sub">把每一次构建、修复与重启，记录成通往群星的轨迹。</p>
 </div>
 
+<section id="build-log-merges" hidden>
+  <h2>GitHub 合并记录</h2>
+  <div class="timeline"></div>
+</section>
+
 <div class="timeline">
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2026-11-07</div>
+    <div class="timeline-content"><h3>光标搭建的封面与布局修复</h3><p>校准封面图片、圆角和渐变的位置，恢复阅读按钮、个人卡片与星港入口的图标。修复侧栏标题的意外换行，分类计数、归档年份和 404 数字在搭建时使用主题色，进入页面后呈现渐变。</p></div>
+</div>
+
+<div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-date">2026-11-06</div>
+    <div class="timeline-content"><h3>光标施工队开屏上线</h3><p>博客先播放开屏，再由彩色光标逐步搭建整页。支持提前跳过渲染，完成后可继续操作页面，也可以手动关闭跟随光标。</p></div>
+</div>
 
 <div class="timeline-item">
     <div class="timeline-dot"></div>
@@ -110,3 +127,5 @@ top_img: false
 <div class="luomo-section-footer">
   <p>—— 每一次构建，都是一次跃迁 ——</p>
 </div>
+
+<script src="/js/luomo-build-log.js?v=20261107" data-pjax></script>

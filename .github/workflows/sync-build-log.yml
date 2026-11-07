@@ -1,0 +1,65 @@
+name: Sync build log
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Reconcile merges made by credentials that suppress push workflows.
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: build-log-feed
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Publish merged pull requests
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          repo="repos/$GITHUB_REPOSITORY"
+          ref="heads/build-log-data"
+          work="$(mktemp -d)"
+          trap 'rm -r "$work"' EXIT
+
+          # Rebuild the snapshot so a canceled pending job cannot lose a merge.
+          gh api --paginate "$repo/pulls?state=closed&base=main&per_page=100" \
+            --jq '.[] | select(.merged_at != null) | {number, title, mergedAt: .merged_at}' > "$work/records.ndjson"
+          jq -s '{entries: (map(select(.mergedAt >= "2026-11-06T16:00:00Z")) | unique_by(.number) | sort_by(.mergedAt, .number) | reverse)}' \
+            "$work/records.ndjson" > "$work/merges.json"
+
+          previous=""
+          if ! previous="$(gh api "$repo/git/ref/$ref" --jq .object.sha 2> "$work/ref-error")"; then
+            if [[ $(<"$work/ref-error") != *"(HTTP 404)"* ]]; then
+              cat "$work/ref-error" >&2
+              exit 1
+            fi
+            previous=""
+          fi
+
+          jq -n --rawfile content "$work/merges.json" \
+            '{tree:[{path:"merges.json", mode:"100644", type:"blob", content:$content}]}' > "$work/tree.json"
+          tree="$(gh api --method POST "$repo/git/trees" --input "$work/tree.json" --jq .sha)"
+          if [[ -n "$previous" && "$(gh api "$repo/git/commits/$previous" --jq .tree.sha)" == "$tree" ]]; then
+            echo 'Build log is already current.'
+            exit 0
+          fi
+
+          jq -n --arg tree "$tree" --arg previous "$previous" \
+            '{message:"chore: sync merged pull requests", tree:$tree, parents:([$previous] | map(select(length > 0)))}' > "$work/commit.json"
+          commit="$(gh api --method POST "$repo/git/commits" --input "$work/commit.json" --jq .sha)"
+          if [[ -n "$previous" ]]; then
+            gh api --method PATCH "$repo/git/refs/$ref" -f sha="$commit" -F force=false --jq .object.sha
+          else
+            gh api --method POST "$repo/git/refs" -f ref="refs/$ref" -f sha="$commit" --jq .object.sha
+          fi

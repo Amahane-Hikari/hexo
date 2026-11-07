@@ -11,6 +11,12 @@
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true }
   ],
+  "rewrites": [
+    {
+      "source": "/build-log/merges.json",
+      "destination": "https://raw.githubusercontent.com/luomo66ccff/hexo/build-log-data/merges.json"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
